@@ -28,15 +28,22 @@ class Contact{
                "\nEmail ID: "+this.email+"\n";
     }
 }
-const prompt = require('./node_modules/prompt-sync')();
-f = prompt('Enter first name: ');
-l = prompt('Enter last name: ');
-a = prompt('Enter address: ');
-c = prompt('Enter city: ');
-s = prompt('Enter state: ');
-z = prompt('Enter zip: ');
-p = prompt('Enter phone number: ');
-em = prompt('Enter email ID: ');
+let addressbook = new Map();
+
+function addContact(...params)
+{
+    let contact = new Contact(params[0],params[1],params[2],params[3],params[4],params[5],params[6],params[7]);
+    let index = params[0]+params[1];
+    addressbook.set(index,contact);
+}
+
+function displayAddressbook()
+{
+    for([key,value] of addressbook)
+    {
+        console.log(value.toString());
+    }
+}
     
 function checkfirstName(f)
 {
@@ -110,6 +117,20 @@ function checkemail(em)
         console.error("Email ID Invalid");
 }
 
+const args = process.argv.slice(2);
+let n = parseInt(args[0]);
+while(n--)
+{
+const prompt = require('./node_modules/prompt-sync')();
+f = prompt('Enter first name: ');
+l = prompt('Enter last name: ');
+a = prompt('Enter address: ');
+c = prompt('Enter city: ');
+s = prompt('Enter state: ');
+z = prompt('Enter zip: ');
+p = prompt('Enter phone number: ');
+em = prompt('Enter email ID: ');
+
 try{
     let firstName=checkfirstName(f);
     let lastName=checklastName(l);
@@ -119,10 +140,11 @@ try{
     let zip=check(z);
     let phone=checkphone(p)
     let email=checkemail(em);
-    let contact = new Contact(firstName,lastName,address,city,state,zip,phone,email);
-    console.log(contact.toString());
+    addContact(firstName,lastName,address,city,state,zip,phone,email);
 }
 catch(e)
 {
     console.error(e);
 }
+}
+displayAddressbook();
