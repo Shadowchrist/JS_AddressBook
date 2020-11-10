@@ -193,11 +193,13 @@ function viewContactsByCity(){
     console.log(`${contacts.length} contacts found.`);
 }
 
-function displayAddressbook()
-{
-    for([key,value] of addressbook)
+function sortContactsByName(){
+    
+    let contactList = changeToArray(addressbook); 
+    contactList.sort((a,b)=> (a.firstName>b.firstName) ? 1 : ((a.firstName<b.firstName)? -1 : 0));
+    for(let person of contactList)
     {
-        console.log(value.toString());
+        console.log(person.toString());
     }
 }
     
@@ -276,7 +278,7 @@ addContact();
 let check = true;
 while(check)
 {
-    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts.\n6 to search a person in a city.\n7 to view contacts in a particular city.\n'));
+    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts in a sorted way.\n6 to search a person in a city.\n7 to view contacts in a particular city.\n'));
     switch(c)
     {
         case 1:
@@ -292,7 +294,7 @@ while(check)
             getNoOfContacts();
         break;
         case 5:
-            displayAddressbook();
+            sortContactsByName();
         break;
         case 6:
             searchContactByCity();
