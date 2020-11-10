@@ -168,6 +168,19 @@ function getNoOfContacts(){
     console.log(count+" contacts");
 }
 
+function searchContactByCity(){
+    let contactList = changeToArray(addressbook);
+    city = prompt('Enter city: ');
+    first = prompt('Enter first name: ');
+    last = prompt('Enter last name: ');
+    let contacts = contactList.filter(e=> e.city == city && e.firstName==first && e.lastName==last)
+                   .reduce((totalCount,e)=>totalCount+1,0);
+    if(contacts>0)
+        console.log("Contact found.");
+    else
+        console.log("Contact not found.");
+}
+
 function displayAddressbook()
 {
     for([key,value] of addressbook)
@@ -251,24 +264,27 @@ addContact();
 let check = true;
 while(check)
 {
-    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts.\n'));
+    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts.\n6 to search a person in a city.\n'));
     switch(c)
     {
         case 1:
-        addContact();
+            addContact();
         break;
         case 2:
-        editContact();
+            editContact();
         break;
         case 3:
-        deleteContact();
+            deleteContact();
         break;
         case 4:
-        getNoOfContacts();
+            getNoOfContacts();
         break;
         case 5:
-        displayAddressbook();
+            displayAddressbook();
         break;
+        case 6:
+            searchContactByCity();
+        break;    
         default:
         console.log('Exiting...');
         check = false;   
