@@ -165,7 +165,7 @@ function deleteContact()
 function getNoOfContacts(){
     let contactList = changeToArray(addressbook);
     let count = contactList.reduce((totalCount,e)=>totalCount+1,0);
-    console.log(count+" contacts");
+    console.log(`${count} contacts`);
 }
 
 function searchContactByCity(){
@@ -179,6 +179,18 @@ function searchContactByCity(){
         console.log("Contact found.");
     else
         console.log("Contact not found.");
+}
+
+function viewContactsByCity(){
+    
+    let contactList = changeToArray(addressbook);
+    city = prompt('Enter city: ');
+    let contacts = contactList.filter(e=>e.city == city);
+    for(let person of contacts)
+    {
+        console.log(person.toString());
+    }
+    console.log(`${contacts.length} contacts found.`);
 }
 
 function displayAddressbook()
@@ -264,7 +276,7 @@ addContact();
 let check = true;
 while(check)
 {
-    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts.\n6 to search a person in a city.\n'));
+    c = parseInt(prompt('Enter:\n1 to add more contacts.\n2 to edit a contact.\n3 to delete a contact.\n4 to get number of contacts.\n5 to display all contacts.\n6 to search a person in a city.\n7 to view contacts in a particular city.\n'));
     switch(c)
     {
         case 1:
@@ -284,7 +296,10 @@ while(check)
         break;
         case 6:
             searchContactByCity();
-        break;    
+        break;  
+        case 7:
+            viewContactsByCity();
+        break;      
         default:
         console.log('Exiting...');
         check = false;   
